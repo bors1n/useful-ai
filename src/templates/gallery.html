@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 sm:px-6 lg:px-12 max-w-7xl py-16">
+  <h1 class="text-5xl font-bold text-center mb-4">Галерея AI</h1>
+  <p class="text-center text-xl text-gray-600 mb-12">
+    Самые полезные AI приложения собраны по категориям в одном месте.
+  </p>
+  
+  <div class="flex justify-start mb-6">
+    <div class="dropdown dropdown-end">
+      <label tabindex="0" class="inline-flex justify-between w-64 rounded-md border border-gray-900 shadow-sm px-4 py-2 bg-white text-base font-medium">
+        Сортировка: 
+        {% if current_sort == 'newest' %} Новые
+        {% elif current_sort == 'popular' %} Популярные
+        {% elif current_sort == 'name_desc' %} Имя (Я–А)
+        {% else %} Имя (А–Я)
+        {% endif %}
+        <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.586l3.71-4.356a.75.75 0 111.14.976l-4.25 5a.75.75 0 01-1.14 0l-4.25-5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+        </svg>
+      </label>
+      <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+        <li><a href="?sort_by=name">Имя (А–Я)</a></li>
+        <li><a href="?sort_by=name_desc">Имя (Я–А)</a></li>
+        <li><a href="?sort_by=newest">Новые</a></li>
+        <li><a href="?sort_by=popular">Популярные</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Tools Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    {% for tool in tools %}
+      {% include "components/_tool_card.html" with tool=tool %}
+    {% endfor %}
+  </div>
+  
+  <!-- Pagination -->
+  {% if tools.paginator.num_pages > 1 %}
+  <div class="flex justify-center mt-12">
+    <div class="btn-group">
+      {% if tools.has_previous %}
+      <a href="?page={{ tools.previous_page_number }}" class="btn border-gray-900 shadow-sm px-4 py-2 bg-white text-base font-medium">«</a>
+      {% endif %}
+      
+      <label class="btn rounded-md border border-gray-900 shadow-sm px-4 py-2 bg-white text-base font-medium">Страница {{ tools.number }} из {{ tools.paginator.num_pages }}</label>
+      
+      {% if tools.has_next %}
+      <a href="?page={{ tools.next_page_number }}" class="btn border-gray-900 shadow-sm px-4 py-2 bg-white text-base font-medium">»</a>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% load static %}
+<div class="navbar bg-base-100 border-b sticky top-0 z-50 bg-white">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-24 max-w-7xl flex justify-between">
+    <!-- Logo Section (Left) -->
+    <div class="navbar-start">
+      <a href="{% url 'home' %}" class="flex items-center gap-2">
+        <!-- Logo SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hover:stroke-gray-600">
+          <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/>
+          <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/>
+          <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/>
+          <path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/>
+          <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/>
+          <path d="M3.477 10.896a4 4 0 0 1 .585-.396"/>
+          <path d="M19.938 10.5a4 4 0 0 1 .585.396"/>
+          <path d="M6 18a4 4 0 0 1-1.967-.516"/>
+          <path d="M19.967 17.484A4 4 0 0 1 18 18"/>
+        </svg>
+        <!-- Logo Text -->
+        <span class="text-xl font-semibold hover:text-gray-600 transition-all">Useful AI</span>
+      </a>
+    </div>
+
+    <!-- Navigation Links (Right) -->
+    <div class="navbar-end">
+      <!-- Desktop Navigation -->
+      <ul class="menu menu-horizontal px-1 hidden lg:flex">
+        <li><a href="{% url 'gallery'%}" class="menu menu-horizontal text-base">Галерея</a></li>
+        <li><a href="{% url 'about' %}" class="menu menu-horizontal text-base">О проекте</a></li>
+      </ul>
+
+      <!-- User Account Dropdown -->
+      <div class="dropdown dropdown-end hidden lg:block">
+        <label tabindex="0" class="btn btn-ghost text-base">
+          {% if user.is_authenticated %}
+            Личный кабинет
+          {% else %}
+            Личный кабинет
+          {% endif %}
+        </label>
+        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+          {% if user.is_authenticated %}
+            <li class="w-full">
+              <a href="{% url 'profile' %}" class="w-full block">Профиль</a>
+            </li>
+            <li class="w-full">
+              <a href="{% url 'logout' %}">Выйти</a>
+            </li>
+          {% else %}
+            <li class="w-full">
+              <a href="{% url 'login' %}" class="w-full block">Войти</a>
+            </li>
+            <li class="w-full">
+              <a href="{% url 'register' %}" class="w-full block">Регистрация</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="lg:hidden">
+        <div class="dropdown dropdown-end">
+          <label tabindex="0" class="btn btn-ghost">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+            </svg>
+          </label>
+          <ul tabindex="0" class="dropdown-content menu p-2 shadow rounded-box w-52 bg-base-100 z-50 mt-4">
+            <li class="w-full"><a href="{% url 'gallery' %}" class="w-full">Галерея</a></li>
+            <li class="w-full"><a href="{% url 'about' %}" class="w-full">О проекте</a></li>
+            {% if user.is_authenticated %}
+              <li class="w-full"><a href="{% url 'profile' %}" class="w-full">Профиль</a></li>
+              <li class="w-full">
+                <form method="post" action="{% url 'logout' %}">
+                  {% csrf_token %}
+                  <a type="submit" class="w-full">Выйти</a>
+                </form>
+              </li>
+            {% else %}
+              <li class="w-full"><a href="{% url 'login' %}" class="w-full">Войти</a></li>
+              <li class="w-full"><a href="{% url 'register' %}" class="w-full">Регистрация</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

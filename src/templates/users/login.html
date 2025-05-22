@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 sm:px-6 lg:px-24 max-w-7xl py-16">
+  <div class="max-w-3xl mx-auto">
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title text-2xl font-bold mb-6">Вход в аккаунт</h2>
+        
+        <form method="POST">
+          {% csrf_token %}
+          
+          <div class="space-y-4">
+            <div>
+              <label class="label" for="id_username">
+                <span class="label-text">Имя пользователя</span>
+              </label>
+              <input type="text" name="username" id="id_username" class="input input-bordered w-full" required>
+            </div>
+            
+            <div>
+              <label class="label" for="id_password">
+                <span class="label-text">Пароль</span>
+              </label>
+              <input type="password" name="password" id="id_password" class="input input-bordered w-full" required>
+            </div>
+            
+            {% if form.errors %}
+              <div class="text-error">
+                <p>Неверное имя пользователя или пароль. Пожалуйста, попробуйте снова.</p>
+              </div>
+            {% endif %}
+            
+            <div class="mt-6">
+              <button type="submit" class="btn btn-lg w-full">Войти</button>
+            </div>
+          </div>
+        </form>
+        
+        <div class="divider">ИЛИ</div>
+        
+        <div class="text-center">
+          <p>Еще нет аккаунта? <a href="{% url 'register' %}" class="text font-bold hover:underline">Зарегистрироваться</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

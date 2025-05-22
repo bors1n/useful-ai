@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 py-12 mt-4">
+  <h1 class="text-3xl font-semibold text-gray-900 mb-8">Предложить инструмент</h1>
+
+  <form method="post" class="space-y-6 bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+    {% csrf_token %}
+    
+    <div>
+      <label for="id_tool_name" class="block text-sm font-medium text-gray-700">Название инструмента</label>
+      <input type="text" name="tool_name" id="id_tool_name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-primary-500 focus:border-primary-500" required>
+    </div>
+
+    <div>
+      <label for="id_tool_link" class="block text-sm font-medium text-gray-700 mt-2">Ссылка на инструмент</label>
+      <input type="url" name="tool_link" id="id_tool_link" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-primary-500 focus:border-primary-500" required>
+    </div>
+
+    <div>
+      <label for="id_comment" class="block text-sm font-medium text-gray-700 mt-2">Комментарий, ваше имя (опционально)</label>
+      <textarea name="comment" id="id_comment" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-primary-500 focus:border-primary-500"></textarea>
+    </div>
+
+    <div>
+      <label for="id_back_email" class="block text-sm font-medium text-gray-700 mt-2">Ваш email (поблагодарить вас)</label>
+      <input type="email" name="back_email" id="id_back_email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-primary-500 focus:border-primary-500">
+    </div>
+
+    <div>
+      <button type="submit" class="btn btn-ghost">
+        Отправить предложение
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}

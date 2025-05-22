@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 sm:px-6 lg:px-24 max-w-7xl py-16">
+  <div class="max-w-3xl mx-auto">
+    <div class="card bg-base-100 shadow-xl">
+      <figure>
+        <img src="{{ tool.image.url }}" alt="{{ tool.name }}" class="w-full object-cover h-48 md:h-64">
+      </figure>
+      <div class="card-body">
+        <!-- Tool header with title/tags on left, buttons on right -->
+        <div class="flex flex-col sm:flex-row justify-between items-start gap-4">
+          <!-- Title and categories (left side) -->
+          <div class="flex-1">
+            <h1 class="card-title text-3xl sm:text-4xl mb-3">{{ tool.name }}</h1>
+            <div class="flex flex-wrap gap-2 mt-2">
+              {% for category in tool.categories.all %}
+              <span class="badge badge-ghost">
+                #{{ category.name }}
+              </span>
+              {% endfor %}
+            </div>
+          </div>
+          
+          <!-- Action buttons (right side) -->
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 sm:gap-2">
+            <a href="{{ tool.link }}" target="_blank" rel="noopener noreferrer"
+              class="border border-gray-200 bg-white text-black text-lg font-semibold rounded-lg px-4 py-2 flex items-center gap-1 hover:bg-gray-50 transition h-12">
+            Перейти на {{ tool.name }}
+            <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_2161_16841)">
+                <path d="M15.75 7.37524C15.75 7.52443 15.6907 7.6675 15.5852 7.77299C15.4798 7.87848 15.3367 7.93774 15.1875 7.93774C15.0383 7.93774 14.8952 7.87848 14.7898 7.77299C14.6843 7.6675 14.625 7.52443 14.625 7.37524V4.23368L9.96117 8.89821C9.85562 9.00376 9.71247 9.06306 9.5632 9.06306C9.41394 9.06306 9.27078 9.00376 9.16523 8.89821C9.05969 8.79267 9.00039 8.64951 9.00039 8.50024C9.00039 8.35098 9.05969 8.20782 9.16523 8.10227L13.8291 3.43774H10.6875C10.5383 3.43774 10.3952 3.37848 10.2898 3.27299C10.1843 3.1675 10.125 3.02443 10.125 2.87524C10.125 2.72606 10.1843 2.58299 10.2898 2.4775C10.3952 2.37201 10.5383 2.31274 10.6875 2.31274H15.1875C15.3367 2.31274 15.4798 2.37201 15.5852 2.4775C15.6907 2.58299 15.75 2.72606 15.75 2.87524V7.37524ZM12.9375 9.06274C12.7883 9.06274 12.6452 9.12201 12.5398 9.2275C12.4343 9.33299 12.375 9.47606 12.375 9.62524V14.6877H3.375V5.68774H8.4375C8.58668 5.68774 8.72976 5.62848 8.83525 5.52299C8.94074 5.4175 9 5.27443 9 5.12524C9 4.97606 8.94074 4.83299 8.83525 4.7275C8.72976 4.62201 8.58668 4.56274 8.4375 4.56274H3.375C3.07663 4.56274 2.79048 4.68127 2.5795 4.89225C2.36853 5.10323 2.25 5.38938 2.25 5.68774V14.6877C2.25 14.9861 2.36853 15.2723 2.5795 15.4832C2.79048 15.6942 3.07663 15.8127 3.375 15.8127H12.375C12.6734 15.8127 12.9595 15.6942 13.1705 15.4832C13.3815 15.2723 13.5 14.9861 13.5 14.6877V9.62524C13.5 9.47606 13.4407 9.33299 13.3352 9.2275C13.2298 9.12201 13.0867 9.06274 12.9375 9.06274Z" fill="currentColor"/>
+              </g>
+              <defs>
+                <clipPath id="clip0_2161_16841">
+                  <rect width="18" height="18" fill="white" transform="translate(0 0.0627441)"/>
+                </clipPath>
+              </defs>
+            </svg>
+          </a>
+
+            {% if user.is_authenticated %}
+            <form action="{% url 'toggle_favorite' tool_id=tool.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="bg-white text-black font-semibold rounded-lg px-3 py-2 border mt-0 border-gray-200 hover:bg-gray-50 transition h-12">
+                {% if is_favorite %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="gold" stroke="gold" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                {% endif %}
+              </button>
+            </form>
+            {% endif %}
+          </div>
+        </div>
+        
+        <div class="divider"></div>
+ 
+        <div class="prose">
+          {{  tool.description|safe  }} 
+        </div>
+
+
+        <section class="bg-white py-8 lg:py-16 antialiased">
+          <div class="max-w-2xl mx-auto px-4">
+            <div class="flex justify-between items-center mb-6">
+              <h2 class="text-lg lg:text-2xl font-semibold text-gray-900">
+                Обсуждение ({{ comment_count }})
+              </h2>
+            </div>
+
+            {% if user.is_authenticated %}
+            <form method="post" class="mb-6">
+              {% csrf_token %}
+              <div class="py-2 px-4 mb-4 bg-white rounded-lg border border-gray-200">
+                <label for="comment" class="sr-only">Your comment</label>
+                <textarea id="comment" name="content" rows="6"
+                  class="w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none"
+                  placeholder="Напишите комментарий..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-ghost">
+                Оставить комментарий
+              </button>
+            </form>
+            {% else %}
+            <p class="mt-4 text-gray-600">
+              Чтобы оставить комментарий, <a href="{% url 'login' %}" class="text-blue-500 hover:underline">войдите в аккаунт</a>.
+            </p>
+            {% endif %}
+
+            {% for comment in comments %}
+            <article class="p-6 mb-6 mt-4 text-base bg-white rounded-lg border border-gray-200">
+              <footer class="flex justify-between items-center mb-2">
+                <div class="flex items-center">
+                  <p class="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold">
+                    {% if comment.user.avatar %}
+                      <img class="mr-2 w-6 h-6 rounded-full object-cover" src="{{ comment.user.avatar.url }}" alt="{{ comment.user.username }}'s avatar">
+                    {% else %}
+                      <img class="mr-2 w-6 h-6 rounded-full" src="">
+                    {% endif %}
+                    {{ comment.user.username }}
+                  </p>
+                  <p class="text-sm text-gray-600">
+                    <time datetime="{{ comment.created_at|date:'c' }}">{{ comment.created_at|date:"M d, Y" }}</time>
+                  </p>
+                </div>
+              </footer>
+              <p class="text-gray-700">{{ comment.content }}</p>
+            </article>
+            {% empty %}
+            <p class="text-gray-600">Комментариев пока нет. Будьте первым!</p>
+            {% endfor %}
+          </div>
+        </section>
+
+        <div class="card-actions justify-end mt-6">
+          <a href="{% url 'home' %}" class="btn btn-ghost">Назад</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

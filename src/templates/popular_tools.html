@@ -1,0 +1,24 @@
+{% load static %}
+
+<section id="popular_tools" class="w-full scroll-mt-20">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-12 max-w-7xl py-16">
+      <div class="text-center mb-10">
+    <h2 class="text-4xl font-bold  mb-4">Самые популярные ИИ</h2>
+    <p class="text-lg text-gray-600">Топовые инструменты, которые выбирают пользователи</p>
+     </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {% for tool in popular_tools %}
+        {% include "components/_tool_card.html" with tool=tool %}
+      {% endfor %}
+    </div>
+
+    <div class="text-center mt-16">
+      <a href="{% url 'gallery' %}" class="btn btn-lg px-8 py-3 rounded-lg transition-colors inline-flex items-center">
+        Показать больше
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section> 
