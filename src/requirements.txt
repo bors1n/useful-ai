@@ -1,6 +1,6 @@
 asgiref==3.8.1
 Django==3.2.25
-django-appconf==1.1.0
+django-appconf==1.0.5
 django-avatar==8.0.1
 dnspython==2.7.0
 dotenv==0.9.9
