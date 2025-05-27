@@ -130,6 +130,13 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = BASE_DIR.parent / "staticfiles"
 
+# Add whitenoise middleware for static files in production
+if not DEBUG:
+    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+else:
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
