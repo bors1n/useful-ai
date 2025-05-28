@@ -28,7 +28,7 @@ load_dotenv(dotenv_path=env_path)
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-h2csdvu!k()m5(fco4ycoebh)iy!2prrxhe!3qd6ownm3mqa!*')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() == 'true'
+DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = ['useful-ai.ru', 'www.useful-ai.ru', '89.104.66.112', 'localhost', '127.0.0.1']
 
