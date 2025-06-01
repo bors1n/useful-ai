@@ -2729,12 +2729,6 @@ video {
   --tw-prose-invert-td-borders: #374151;
 }
 
-@import "daisyui/src/styles/1-base/base.css";
-
-@import "daisyui/src/styles/2-components/components.css";
-
-@import "daisyui/src/styles/3-utilities/utilities.css";
-
 .sr-only {
   position: absolute;
   width: 1px;
