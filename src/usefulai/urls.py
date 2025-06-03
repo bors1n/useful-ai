@@ -17,8 +17,17 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import RedirectView
+from django.views.generic.base import TemplateView
+from django.contrib.sitemaps.views import sitemap
+from tools.sitemap import ToolsSitemap, CategorySitemap, StaticViewSitemap
 from . import views
 from django.conf.urls.static import static
+
+sitemaps = {
+    'tools': ToolsSitemap,
+    'categories': CategorySitemap,
+    'static': StaticViewSitemap,
+}
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -29,6 +38,8 @@ urlpatterns = [
     path('tools/', include('tools.urls')),  # Include tools URLs with prefix
     path('suggestion/', views.suggestion, name='suggestion'),
     path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico', permanent=True)),
+    path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

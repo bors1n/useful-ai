@@ -1,0 +1,20 @@
+# robots.txt for UsefulAI
+User-agent: *
+Allow: /
+Allow: /gallery/
+Allow: /about/
+Allow: /tool/
+Allow: /suggestion/
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /accounts/
+Disallow: /login/
+Disallow: /register/
+Disallow: /profile/
+
+# Sitemap location
+Sitemap: https://useful-ai.ru/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1 
