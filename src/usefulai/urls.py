@@ -23,6 +23,7 @@ from tools.sitemap import ToolsSitemap, CategorySitemap, StaticViewSitemap
 from . import views
 from django.conf.urls.static import static
 
+# Sitemap configuration
 sitemaps = {
     'tools': ToolsSitemap,
     'categories': CategorySitemap,
@@ -39,7 +40,7 @@ urlpatterns = [
     path('suggestion/', views.suggestion, name='suggestion'),
     path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico', permanent=True)),
     path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
