@@ -14,14 +14,16 @@
     <meta property="og:description" content="{% block og_description %}Useful AI — это агрегатор, где собраны действительно полезные сервисы, использующие искусственный интеллект.{% endblock %}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
-    <meta property="og:image" content="{% block og_image %}{% static 'img/og_image.png' %}{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/og_image.png' %}{% endblock %}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{% block twitter_title %}Useful AI{% endblock %}">
     <meta name="twitter:description" content="{% block twitter_description %}Useful AI — это агрегатор, где собраны действительно полезные сервисы, использующие искусственный интеллект.{% endblock %}">
-    <meta name="twitter:image" content="{% block twitter_image %}{% static 'img/og_image.png' %}{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/og_image.png' %}{% endblock %}">
     <title>{% block head_title %}Useful AI{% endblock %}</title>
-    <link rel="icon" href="/static/favicon.ico">
+    <link rel="icon" href="{% static 'favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'css/usefulai.css' %}">
+    <link rel="stylesheet" href="{% static 'tw/tailwind-input.css' %}">
+    <link rel="stylesheet" href="{% static 'custom/custom.css' %}">
 </head>
 <body class="min-h-screen bg-white flex flex-col">
     {% include 'navbar.html' %}

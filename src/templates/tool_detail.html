@@ -133,7 +133,7 @@
 
 {% block og_title %}{{ tool.name }} — Useful AI{% endblock %}
 {% block og_description %}{{ tool.small_description }}{% endblock %}
-{% block og_image %}{{ tool.image.url }}{% endblock %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{{ tool.image.url }}{% endblock %}
 {% block twitter_title %}{{ tool.name }} — Useful AI{% endblock %}
 {% block twitter_description %}{{ tool.small_description }}{% endblock %}
-{% block twitter_image %}{{ tool.image.url }}{% endblock %}
+{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{{ tool.image.url }}{% endblock %}
