@@ -1,7 +1,7 @@
 <a href="{% url 'tool_detail' tool.slug %}" class="block group">
   <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 cursor-pointer h-[280px]">
     <figure class="p-1.5">
-      <img src="{{ tool.image.url }}" alt="{{ tool.name }}" class="rounded-xl w-full h-36 object-cover"/>
+      <img src="{{ tool.image.url }}" alt="{{ tool.name }}" class="rounded-xl w-full h-36 object-cover" loading="lazy"/>
     </figure>
     <div class="card-body p-3 border-solid">
       <h2 class="card-title text-base font-bold mb-1 group-hover:text-gray-600 transition-colors">{{ tool.name }}</h2>
