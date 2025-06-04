@@ -1,9 +1,11 @@
 {% load static %}
+{% load seo_tags %}
 {% csrf_token %}
 <!DOCTYPE html>
 <html lang="en" data-theme="light" class="sm:scroll-smooth">
 <head>
     <meta charset="UTF-8">
+    <link rel="canonical" href="{% canonical_url %}" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="SL7hNZzxnWefhStqAKJiH_xMxf9BMqWJNOE3qboGh4Q" />

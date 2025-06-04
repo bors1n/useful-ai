@@ -1,25 +1,35 @@
 from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
+from django.conf import settings
 from .models import Tools, Category
 
-class ToolsSitemap(Sitemap):
+class BaseSitemap(Sitemap):
+    protocol = 'https'
+
+class ToolsSitemap(BaseSitemap):
     changefreq = "weekly"
     priority = 0.8
 
     def items(self):
-        return Tools.objects.all()
+        return Tools.objects.all().order_by('-date_added')
 
     def lastmod(self, obj):
         return obj.date_added
 
-class CategorySitemap(Sitemap):
+    def location(self, obj):
+        return f'/tools/{obj.slug}/'
+
+class CategorySitemap(BaseSitemap):
     changefreq = "monthly"
     priority = 0.6
 
     def items(self):
-        return Category.objects.all()
+        return Category.objects.all().order_by('name')
 
-class StaticViewSitemap(Sitemap):
+    def location(self, obj):
+        return f'/tools/category/{obj.slug}/'
+
+class StaticViewSitemap(BaseSitemap):
     priority = 0.9
     changefreq = "monthly"
 
@@ -28,5 +38,9 @@ class StaticViewSitemap(Sitemap):
 
     def location(self, item):
         if item == 'home':
-            return '/'
-        return f'/{item}/' 
+            return reverse('home')
+        return reverse(item)
+
+    def lastmod(self, item):
+        # For static pages, we can return None or a fixed date
+        return None 
