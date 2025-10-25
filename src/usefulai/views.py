@@ -8,7 +8,7 @@ from django.db.models import Count # Import Count for popular sorting
 def home(request):
     """Home page view."""
     # Get popular tools (sorted by votes)
-    popular_tools = Tools.objects.annotate(favorite_count=Count('favorite')).order_by('-favorite_count', 'name')[:4]
+    popular_tools = Tools.objects.annotate(favorite_count=Count('favorite')).order_by('-favorite_count', 'name')[:8]
     
     # Get new tools (sorted by date_added)
     new_tools = Tools.objects.all().order_by('-date_added')[:4]
