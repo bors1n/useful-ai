@@ -58,7 +58,7 @@ def gallery(request):
         tools = Tools.objects.all().order_by('name')
     
     # Pagination
-    paginator = Paginator(tools, 8)  # Show 9 tools per page
+    paginator = Paginator(tools, 16)  # Show 16 tools per page
     page_number = request.GET.get('page', 1)
     tools = paginator.get_page(page_number)
     
