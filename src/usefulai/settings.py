@@ -30,7 +30,18 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-h2csdvu!k()m5(fco4y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = ['useful-ai.ru', 'www.useful-ai.ru', '89.104.66.112', 'localhost', '127.0.0.1']
+default_allowed_hosts = [
+    'useful-ai.ru',
+    'www.useful-ai.ru',
+    '188.120.234.57',
+    'localhost',
+    '127.0.0.1',
+]
+allowed_hosts_from_env = os.getenv('DJANGO_ALLOWED_HOSTS', '')
+if allowed_hosts_from_env.strip():
+    ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_from_env.split(',') if host.strip()]
+else:
+    ALLOWED_HOSTS = default_allowed_hosts
 
 
 # Application definition
@@ -166,6 +177,9 @@ AUTH_USER_MODEL = 'users.User'
 # Security settings
 if not DEBUG:
     # Production settings
+    # Trust HTTPS scheme forwarded by reverse proxy (Nginx).
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    USE_X_FORWARDED_HOST = True
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
